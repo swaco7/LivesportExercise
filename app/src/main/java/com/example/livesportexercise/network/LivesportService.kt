@@ -16,5 +16,5 @@ interface LivesportService {
         @Query("sport-ids") sport_ids: String,
         @Query("type-ids") type_ids: String,
         @Query("q") query: String
-    ) : List<QueryItem>
+    ) : Response<List<QueryItem>>
 }

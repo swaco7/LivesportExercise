@@ -6,11 +6,12 @@ import com.example.livesportexercise.data.QueryResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import javax.inject.Inject
 
-class LivesportRepository(
+class LivesportRepository @Inject constructor(
     private val livesportService : LivesportService
 ) {
-    suspend fun getSearchResults(sportIds: String, typeIds: String, query: String): List<QueryItem> =
+    suspend fun getSearchResults(sportIds: String, typeIds: String, query: String): Response<List<QueryItem>> =
         livesportService.search(
             lang_id = Config.lang_id,
             project_id = Config.project_id,
