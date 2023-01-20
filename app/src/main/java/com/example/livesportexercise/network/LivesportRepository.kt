@@ -2,9 +2,6 @@ package com.example.livesportexercise.network
 
 import com.example.livesportexercise.Config
 import com.example.livesportexercise.data.QueryItem
-import com.example.livesportexercise.data.QueryResponse
-import retrofit2.Call
-import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Inject
 

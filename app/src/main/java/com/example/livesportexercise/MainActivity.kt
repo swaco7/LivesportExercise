@@ -15,31 +15,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             LivesportExerciseTheme {
-                // A surface container using the 'background' color from the theme
-                //val owner = LocalViewModelStoreOwner.current
-
-//                owner?.let {
-//                    val viewModel: SearchViewModel = viewModel(
-//                        it,
-//                        "MainViewModel",
-//                        SearchViewModelFactory(LivesportRepository(livesportService = liveSportService)
-//                    ))
-                    AppContainer()
-                //}
+                AppContainer()
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String) {
-    Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    LivesportExerciseTheme {
-        Greeting("Android")
     }
 }

@@ -24,14 +24,14 @@ class AppModule {
         }
         .build()
 
-    internal val LivesportRetrofit: Retrofit = Retrofit.Builder()
+    private val livesportRetrofit: Retrofit = Retrofit.Builder()
         .baseUrl(Config.baseUrl)
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 
     @Provides
-    fun provideRetrofit(): LivesportService = LivesportRetrofit
+    fun provideRetrofit(): LivesportService = livesportRetrofit
         .create(LivesportService::class.java)
 
     @Provides

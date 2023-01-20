@@ -19,6 +19,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -48,7 +49,10 @@ fun SearchScreen(
         }
 
         when (val state = viewModel.uiState.collectAsState().value){
-            is SearchViewModel.SearchState.Loaded -> SearchLoadedScreen(data = state.data, navController)
+            is SearchViewModel.SearchState.Loaded -> SearchLoadedScreen(
+                data = state.data,
+                navController
+            )
             is SearchViewModel.SearchState.Loading -> Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
@@ -57,7 +61,12 @@ fun SearchScreen(
                 CircularProgressIndicator()
             }
             is SearchViewModel.SearchState.Error -> ErrorDialog(
-                state.message,
+                when (state.message) {
+                                     "400" -> stringResource(R.string.error_400)
+                                     "422" -> stringResource(R.string.error_422)
+                                     "503" -> stringResource(R.string.error_503)
+                                     else -> stringResource(R.string.error_unidentified)
+                                     },
                 onDismiss = {viewModel.resetLoadingState()},
                 onTryAgain = {viewModel.getSearchResults(text, filter.ids)}
             )
@@ -67,9 +76,9 @@ fun SearchScreen(
 }
 
 enum class FilterType(val ids: String, val title: String) {
-    All(ids = Config.allIds, title = "Všetky"),
-    Competition(ids = Config.competitions, title = "Souteže" ),
-    Participants(ids = Config.participants, title = "Participanti"),
+    All(ids = Config.allIds, title = "All"),
+    Competition(ids = Config.competitions, title = "Competitions" ),
+    Participants(ids = Config.participants, title = "Participants"),
 }
 
 @Composable
@@ -86,7 +95,7 @@ fun ErrorDialog(
                 openDialog.value = false
             },
             title = {
-                Text(text = "Something went wrong")
+                Text(text = stringResource(R.string.something_went_wrong))
             },
             text = {
                 Text(message)
@@ -98,7 +107,7 @@ fun ErrorDialog(
                         onDismiss()
                         onTryAgain()
                     }) {
-                    Text("Try again")
+                    Text(stringResource(R.string.try_again))
                 }
             }
         )
@@ -154,7 +163,7 @@ fun SearchField(
             border = BorderStroke(1.dp, Color.Gray)
         ) {
             Text(
-                text = AnnotatedString("Hledat")
+                text = AnnotatedString(stringResource(R.string.search))
             )
         }
     }

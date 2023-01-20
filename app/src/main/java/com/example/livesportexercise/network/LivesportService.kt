@@ -1,8 +1,6 @@
 package com.example.livesportexercise.network
 
 import com.example.livesportexercise.data.QueryItem
-import com.example.livesportexercise.data.QueryResponse
-import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

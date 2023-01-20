@@ -1,9 +1,11 @@
 package com.example.livesportexercise
 
+import android.content.Context
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,6 +13,7 @@ import com.example.livesportexercise.data.QueryItem
 import com.example.livesportexercise.network.CoroutineDispatcherProvider
 import com.example.livesportexercise.network.LivesportRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -45,11 +48,11 @@ class SearchViewModel @Inject constructor(
                     }
                 }
             } catch (ex: Exception) {
-                Log.e("exception", ex.toString())
                 _uiState.value = SearchState.Error("503")
             }
         }
     }
+
 
     sealed class SearchState {
         object Empty : SearchState()

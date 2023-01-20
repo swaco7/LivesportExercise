@@ -27,8 +27,8 @@ import com.squareup.moshi.Moshi
 fun AppContainer(viewModel: SearchViewModel = viewModel()){
     val navController = rememberNavController()
     val backStackEntry by navController.currentBackStackEntryAsState()
-    // Get the name of the current screen
-    val currentScreen = backStackEntry?.destination?.route ?: ""
+    val initScreenId = stringResource(R.string.results_screen_id)
+    val currentScreen = backStackEntry?.destination?.route ?: initScreenId
     Scaffold(
         topBar = {
             CustomTopAppBar(
@@ -40,10 +40,10 @@ fun AppContainer(viewModel: SearchViewModel = viewModel()){
     ) { padding ->
         NavHost(
             navController = navController,
-            startDestination = "Výsledky",
+            startDestination = initScreenId,
             modifier = Modifier.padding(padding)
         ) {
-            composable(route = "Výsledky") {
+            composable(route = initScreenId) {
                 SearchScreen(
                     viewModel = viewModel,
                     navController = navController
@@ -73,7 +73,7 @@ fun CustomTopAppBar(
     modifier: Modifier = Modifier
 ) {
     TopAppBar(
-        title = { Text(if (!canNavigateBack) currentScreen else "Detail") },
+        title = { Text(if (!canNavigateBack) currentScreen else stringResource(R.string.detail_screen_id)) },
         backgroundColor = Color.DarkGray,
         contentColor = Color.White,
         modifier = modifier,
